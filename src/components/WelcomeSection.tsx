@@ -1,12 +1,23 @@
+import { useState, useEffect } from 'react';
 import { motion } from "motion/react";
+import { fetchSettings } from '@/hooks/useSiteSettings';
 
 export function WelcomeSection() {
+  const [tagline, setTagline] = useState('Explore My Digital World');
+  const [bgImage, setBgImage] = useState('/background1.jpg');
+
+  useEffect(() => {
+    fetchSettings().then((s) => {
+      setTagline(s.tagline);
+      setBgImage(s.welcome_bg);
+    });
+  }, []);
+
   return (
-    <section 
+    <section
       className="relative h-screen flex items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
-        // 这里换成你想要的【Welcome 顶部大背景图】
-        backgroundImage: 'url("/background1.jpg")',
+        backgroundImage: `url("${bgImage}")`,
       }}
     >
       {/* 黑色半透明遮罩，让白色文字更清晰 */}
@@ -28,7 +39,7 @@ export function WelcomeSection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="text-xl md:text-2xl text-gray-200 font-light tracking-widest uppercase"
         >
-          Explore My Digital World
+          {tagline}
         </motion.p>
       </div>
       

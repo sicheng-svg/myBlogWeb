@@ -1,13 +1,26 @@
+import { useState, useEffect } from 'react';
+import { fetchSettings } from '@/hooks/useSiteSettings';
+
 export function Footer() {
+  const [githubUrl, setGithubUrl] = useState('https://github.com/sicheng-svg');
+  const [csdnUrl, setCsdnUrl] = useState('https://blog.csdn.net/xsc2004zyj?spm=1000.2115.3001.5343');
+
+  useEffect(() => {
+    fetchSettings().then((s) => {
+      setGithubUrl(s.github_url);
+      setCsdnUrl(s.csdn_url);
+    });
+  }, []);
+
   const links = [
     {
       name: 'GitHub',
-      url: 'https://github.com/sicheng-svg',
+      url: githubUrl,
       icon: 'https://github.com/favicon.ico',
     },
     {
       name: 'CSDN',
-      url: 'https://blog.csdn.net/xsc2004zyj?spm=1000.2115.3001.5343',
+      url: csdnUrl,
       icon: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
     },
   ];

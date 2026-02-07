@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { fetchSettings } from '@/hooks/useSiteSettings';
 
 interface ContributionDay {
   date: string;
@@ -18,7 +19,6 @@ interface WeekCell {
   day: number;
 }
 
-const GITHUB_USERNAME = 'sicheng-svg';
 const CELL_SIZE = 11;
 const CELL_GAP = 3;
 const CELL_STEP = CELL_SIZE + CELL_GAP; // 14px
@@ -29,6 +29,7 @@ const RESET_DELAY = 1500; // ms pause before restart
 export function ContributionGraph() {
   const [data, setData] = useState<ContributionData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [githubUsername, setGithubUsername] = useState('sicheng-svg');
 
   // Snake state managed via ref for performance (avoids re-render per step)
   const [, forceRender] = useState(0);
@@ -40,15 +41,19 @@ export function ContributionGraph() {
   }>({ body: [], eaten: new Set(), pathIndex: 0 });
 
   useEffect(() => {
-    fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}`)
-      .then(res => res.json())
-      .then((json: ContributionData) => {
-        setData(json);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    fetchSettings().then((s) => {
+      const username = s.github_username || 'sicheng-svg';
+      setGithubUsername(username);
+      fetch(`https://github-contributions-api.jogruber.de/v4/${username}`)
+        .then(res => res.json())
+        .then((json: ContributionData) => {
+          setData(json);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    });
   }, []);
 
   // 将 API 扁平日期数组按周分组

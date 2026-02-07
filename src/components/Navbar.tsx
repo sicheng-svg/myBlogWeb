@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from './ui/utils';
+import { fetchSettings } from '@/hooks/useSiteSettings';
 
 export function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const [siteName, setSiteName] = useState('XSC Blog');
+
+  useEffect(() => {
+    fetchSettings().then((s) => setSiteName(s.site_name));
+  }, []);
 
   useEffect(() => {
     if (!isHome) {
@@ -39,7 +45,7 @@ export function Navbar() {
             isTransparent ? "text-white" : "text-gray-900"
           )}
         >
-          XSC Blog
+          {siteName}
         </Link>
         <Link
           to="/blogs"
