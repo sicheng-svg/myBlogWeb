@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ContributionGraph } from './ContributionGraph';
+import { ScrollReveal } from './ScrollReveal';
 import { fetchSettings } from '@/hooks/useSiteSettings';
 
 export function ProfileSection() {
@@ -31,12 +31,7 @@ export function ProfileSection() {
       {/* ❌ 已删除：白色遮罩层 */}
       
       <div className="max-w-6xl mx-auto relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <ScrollReveal>
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
             
             {/* 头像 */}
@@ -58,7 +53,7 @@ export function ProfileSection() {
           </div>
 
           <ContributionGraph />
-        </motion.div>
+        </ScrollReveal>
       </div>
     </div>
   );

@@ -58,6 +58,17 @@ export function Navbar() {
         >
           全部博文
         </Link>
+        <Link
+          to="/about"
+          className={cn(
+            "text-sm font-medium transition-colors",
+            isTransparent
+              ? "text-white/80 hover:text-white"
+              : "text-gray-900 hover:text-gray-600"
+          )}
+        >
+          关于我
+        </Link>
       </div>
     </nav>
   );

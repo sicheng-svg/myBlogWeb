@@ -15,6 +15,13 @@ const DEFAULTS: SiteSettings = {
   github_url: 'https://github.com/sicheng-svg',
   github_username: 'sicheng-svg',
   csdn_url: 'https://blog.csdn.net/xsc2004zyj?spm=1000.2115.3001.5343',
+  about_name: '',
+  about_title: '',
+  about_bio: '',
+  about_skills: '',
+  about_experience: '',
+  about_education: '',
+  about_resume_url: '',
 };
 
 export function getDefaults(): SiteSettings {

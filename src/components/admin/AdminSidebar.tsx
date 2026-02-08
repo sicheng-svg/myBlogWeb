@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FileText, FolderOpen, Tag, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, FolderOpen, Tag, Settings, User, LogOut } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Sidebar,
@@ -19,6 +19,7 @@ const navItems = [
   { title: '文章管理', icon: FileText, path: '/admin/posts' },
   { title: '分类管理', icon: FolderOpen, path: '/admin/categories' },
   { title: '标签管理', icon: Tag, path: '/admin/tags' },
+  { title: '关于我', icon: User, path: '/admin/about' },
   { title: '个人设置', icon: Settings, path: '/admin/settings' },
 ];
 

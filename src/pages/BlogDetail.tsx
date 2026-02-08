@@ -4,9 +4,11 @@ import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/github-dark.css';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { CodeBlock } from '../components/CodeBlock';
 import { fetchPostBySlug } from '@/hooks/usePosts';
+import { springTransition } from '@/lib/motion';
 import type { Post } from '@/lib/database.types';
 
 export function BlogDetail() {
@@ -67,7 +69,7 @@ export function BlogDetail() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={springTransition}
         >
           <Link
             to="/blogs"
@@ -90,7 +92,15 @@ export function BlogDetail() {
           )}
 
           <article className="prose prose-gray max-w-none">
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+              components={{
+                pre: ({ children, ...rest }) => (
+                  <CodeBlock {...rest}>{children}</CodeBlock>
+                ),
+              }}
+            >
               {post.content}
             </Markdown>
           </article>

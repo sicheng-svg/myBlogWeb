@@ -268,7 +268,7 @@ export function ContributionGraph() {
   };
 
   return (
-    <div className="bg-[#0d1117] border border-gray-700 rounded-lg p-6 w-fit mx-auto">
+    <div className="bg-[#0d1117] border border-gray-700 rounded-lg p-6 w-full max-w-fit mx-auto">
       <div className="mb-4">
         <h3 className="text-left text-white font-medium mb-2">
           贡献活动
@@ -283,7 +283,7 @@ export function ContributionGraph() {
       {loading ? (
         <div className="text-gray-500 text-sm py-8 text-center">加载中...</div>
       ) : (
-        <div className="overflow-hidden">
+        <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
           <div style={{ display: 'inline-block' }}>
             {/* Month labels */}
             <div
